@@ -1,12 +1,16 @@
 const todoInput = document.querySelector('.todo-input');
 const todoButton = document.querySelector('.todo-button');
 const todoList = document.querySelector('.todo-list');
-
+const filterOption = document.querySelector('.filter-todo');
 
 //addEventListener(type, listener);
 //The object that receives a notification (an object that implements the Event interface) 
 todoButton.addEventListener('click',addTodo);
 todoList.addEventListener('click',deleteCheck);
+//filterOption.addEventListener('click',filterTodo);
+
+
+
 
 function addTodo(event)
 {
@@ -50,14 +54,25 @@ function deleteCheck(e)
     const item = e.target;
 
     //delete
-    if(item.classList[0] === 'trash-btn')
-    {
-        const todo = item.parentElement;
-        todo.remove();
-    }
+  
+  if (item.classList[0] === "trash-btn") {
+    // e.target.parentElement.remove();
+    const todo = item.parentElement;
+    todo.classList.add("fall");
+    //at the end
+    todo.addEventListener("transitionend", e => {
+      todo.remove();
+    });
+  }
     //check
-    if(item.classList === 'complete-btn'){
+    if(item.classList[0] === 'complete-btn'){
         const todo = item.parentElement;
         todo.classList.toggle('completed');
     }
+}
+
+function filterTodo (e)
+{
+        const todos = todoList.childNodes;
+        console.log(todos);
 }
